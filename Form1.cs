@@ -11,6 +11,24 @@ namespace FlexGridComboCycle
         public Form1()
         {
             InitializeComponent();
+            c1FlexGrid1.SetupEditor += (s, e) =>
+            {
+                var combo = this.c1FlexGrid1.Editor as ComboBox;
+                if (combo != null)
+                {
+                    combo.FormattingEnabled = true;
+                    combo.DrawMode = DrawMode.Normal;
+                }
+            };
+            c1FlexGrid1.LeaveEdit += (s, e) =>
+            {
+                var combo = this.c1FlexGrid1.Editor as ComboBox;
+                if (combo != null)
+                {
+                    combo.FormattingEnabled = false;
+                    combo.DrawMode = DrawMode.OwnerDrawVariable;
+                }
+            };
             c1FlexGrid1.DataSource = new BindingSource() { DataSource = new List<MyClass> { new MyClass() } };
             c1FlexGrid1.Cols[nameof(MyClass.LocalizedComboProperty)].ComboList = "Item A|Item B|Item C";  //  <------------------------------------
         }  //                                                                                                                                     |
